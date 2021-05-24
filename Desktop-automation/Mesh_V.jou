@@ -1,0 +1,21 @@
+/file/set-tui-version "19.4"
+/file/read-mesh "C:\Users\AGHR\AGH Racing\Aerodynamics - Dokumenty\CFD\Car\Models\msh - OneDrive\S\@S.msh.gz"
+/parallel/thread-number-control 0
+/parallel/auto-partition? yes
+/objects/volumetric-regions/update domain
+/scoped-sizing/compute 
+/mesh/auto-mesh domain no scoped pyramids poly-hexcore yes yes
+/mesh/prepare-for-solve yes 
+/boundary/manage/merge zwezka b () alphabetic-order 
+/boundary/manage/merge rw-m* rw-i* () first-zone
+/report/quality-method skewness volume 
+/mesh/modify/auto-node-move * () * () 0.91 50 120 yes 2 
+/report/quality-method inverse-ortho-quality
+/mesh/modify/auto-node-move * () * () 0.90 50 120 yes 1
+/report/quality-method skewness volume
+/mesh/modify/auto-node-move * () * () 0.95 50 120 yes 2
+/boundary/manage/merge s shroud () alphabetic-order
+/boundary/manage/merge prawa-przednia* prawa-przednia* () alphabetic-order 
+/boundary/manage/merge prawa-tylna* prawa-tylna* () alphabetic-order 
+/file/write-mesh "C:\Users\AGHR\AGH Racing\Aerodynamics - Dokumenty\CFD\Car\Models\msh - OneDrive\V\@V.msh.gz"
+/file//exit

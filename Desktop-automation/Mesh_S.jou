@@ -1,0 +1,15 @@
+/file/set-tui-version "19.4"
+/file/read-mesh "C:\Users\AGHR\AGH Racing\Aerodynamics - Dokumenty\CFD\Car\Models\msh - OneDrive\G\@G.msh.gz"
+/parallel/thread-number-control 0
+/parallel/auto-partition? yes
+/scoped-sizing/compute
+/objects/create-intersection-loops collectively b bounding-box d fw* kola n rw* s su zwezka () 
+/objects/wrap/wrap b bounding* d fw* kola n rw* s* zwe* () collectively domain shrink-wrap domain hybrid 0.85 
+yes
+/objects/merge domain fan he () domain
+/boundary/remesh/intersect-face-zones he* fan* () s:* b:* () 40. 0.1 no 
+/diagnostics/face-connectivity/fix-free-faces objects domain () delete-fringes 20 
+/objects/volumetric-regions/compute domain yes domain domain-2 he () 
+/objects/volumetric-regions/update domain 
+/file/write-mesh "C:\Users\AGHR\AGH Racing\Aerodynamics - Dokumenty\CFD\Car\Models\msh - OneDrive\S\@S.msh.gz"
+/file//exit
