@@ -1,0 +1,2 @@
+Celem symulacji by³o sprawdzenie nowych kszta³tów endplate dla RW
+Model bazowy: C_U_01 

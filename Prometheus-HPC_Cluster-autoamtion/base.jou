@@ -1,0 +1,28 @@
+; case_name = @
+; mesh_name = @V
+/file/read-case /net/archive/groups/plggfsracing/CASE_NEW.cas
+/file/replace-mesh "plgscratch/@V.msh.gz" ok
+/mesh/surface-mesh/read /net/archive/groups/plggfsracing/surf.msh.gz m
+/solve/report-files/edit c_x_y file-name "plgscratch/Out/@.out" name "@" quit
+/solve/report-files/edit c_x_y_components file-name "plgscratch/Out/@_components.out" name "@_components" quit
+/file/auto-save/root-name "plgscratch/@"
+/mesh/adapt/refinement-criteria "velo_curv001"
+/mesh/adapt/set/minimum-cell-volume 1
+/mesh/adapt/set/minimum-cell-quality 0.03
+/mesh/scale 0.001 0.001 0.001
+/mesh/quality
+/solve/iterate 250 yes
+/mesh/adapt/set/minimum-cell-volume 5e-07
+/mesh/adapt/refinement-criteria "tke_12J"
+/solve/iterate 250
+/solve/set/data-sampling yes 1 yes yes
+/mesh/adapt/set/minimum-cell-volume 1e-07
+/mesh/adapt/refinement-criteria "tke_8J"
+/solve/iterate 450 
+/solve/report-files/edit c_x_y_massflow active? yes quit
+/file/read-journal "/net/archive/groups/plggfsracing/imprint.scm"    
+      
+/solve/report-files/edit c_x_y_massflow file-name "plgscratch/Out/@_massflow.out" name "@_massflow" quit
+/solve/iterate 50
+/file/export/ensight-gold "plgscratch/Cases/@/@" mean-pressure mean-x-velocity mean-y-velocity mean-z-velocity mean-x-wall-shear mean-y-wall-shear mean-z-wall-shear turb-kinetic-energy y-plus () yes * () () no
+/file//exit
