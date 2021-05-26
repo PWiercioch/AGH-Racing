@@ -1,14 +1,21 @@
 clc
 clear all
+%% setup
+% select bounds
+max_angle=4; % by index in data table, the lower the number the bigger value of angle
+min_angle=6; % by index in data table, the lower the number the bigger value of angle
+airfoil_n=2; % number of best airfoils to find
+
+%% read data
 
 % read airfoil names
 name=sheetnames('profile.xlsx');
 name(1,:)=[];
 name([19,21,23],:)=[];
+
 % read angle of attack span
 x=readmatrix("profile.xlsx","Sheet","SG6040","Range","A2:A17");
 
-%% read data
 i=1;
 for i=1:length(name)
     data(:,[1,2,3,4,5]+(i-1)*5)=readmatrix("profile.xlsx","Sheet",name(i),"Range","A2:E17");
@@ -25,12 +32,7 @@ for i=1:length(data(1,:))
 end
 
 %% calculations
-% select bounds
-min_angle=8; % by index in data table
-max_angle=12; % by index in data table
-airfoil_n=4; % number of best airfoils to find
-
-temp=df([min_angle:max_angle],:); % select angle pof attack range
+temp=df([max_angle:min_angle],:); % select angle pof attack range
 temp=sort(temp,'descend'); % sort columns i descending order
 temp2=temp(1,:); % select first row - highest downforce value for every column(airfoil) 
 temp2=sort(temp2,'descend'); % sort airfoils by peak performance
@@ -49,6 +51,8 @@ for i=1:length(col)
     i=i+1;
 end
 legend(name(col),'Location','SouthEast')
+xlabel("Angle of attack [{\circ}]")
+ylabel("Downforce [N]")
 grid on
 hold off
 
@@ -59,8 +63,10 @@ for i=1:length(col)
     hold on
     i=i+1;
 end
-xlim([x(max(row)+1) x(min(row)-1)])
+xlim([data(min_angle,1) data(max_angle,1)])
 legend(name(col),'Location','SouthEast')
+xlabel("Angle of attack [{\circ}]")
+ylabel("Downforce [N]")
 grid on
 hold off
 
