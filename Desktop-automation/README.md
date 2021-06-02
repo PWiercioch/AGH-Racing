@@ -36,6 +36,6 @@ All the user has to do is specify input file names (excluding extensions) in lin
 ```
 set list=
 ```
-After saving changes script an be run by double clicking on its icon. 
+After saving changes script a be run by double-clicking on its icon. 
 
 Terminal prompts which mesh is currently being generated. During calculations output files are generated in real time allowing user to spot possible errors.
