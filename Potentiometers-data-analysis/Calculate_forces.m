@@ -43,10 +43,10 @@ FR_poprawka=0.505;
 RL_poprawka=-0.197;
 FL_poprawka=0.115;
 RR_poprawka=-0.005;
-FR_relative=przemieszczenia(FR, FR_v);
-RL_relative=przemieszczenia(RL, RL_v);
-FL_relative=przemieszczenia(FL, FL_v);
-RR_relative=przemieszczenia(RR, RR_v);
+FR_relative=displacement(FR, FR_v);
+RL_relative=displacement(RL, RL_v);
+FL_relative=displacement(FL, FL_v);
+RR_relative=displacement(RR, RR_v);
 
 ch_bump=1538;
 ch_rebound=1538;
@@ -72,32 +72,32 @@ figure(1)
 
 sgtitle("Potentiometer displacement")
 
-wykresy6(czas,FR,1,"Front Heave","Displacement",[2000 6000])
-wykresy6(czas,RL,2,"Rear Heave","Displacement",[2800 6000])
-wykresy6(czas,FL,3,"Front Roll","Displacement",[4800 6800])
-wykresy6(czas,RR,4,"Rear Roll","Displacement",[4800 6800])
-wykresy6(czas,RPM,5,"RPM","RPM",[0 2500])
-wykresy6(czas,RPM,6,"RPM","RPM",[0 2500])
+plot6(czas,FR,1,"Front Heave","Displacement",[2000 6000])
+plot6(czas,RL,2,"Rear Heave","Displacement",[2800 6000])
+plot6(czas,FL,3,"Front Roll","Displacement",[4800 6800])
+plot6(czas,RR,4,"Rear Roll","Displacement",[4800 6800])
+plot6(czas,RPM,5,"RPM","RPM",[0 2500])
+plot6(czas,RPM,6,"RPM","RPM",[0 2500])
 
 figure(2)
 
 sgtitle("Relative potentiometer displacement [mm]")
 
-wykresy6(czas,FR_relative,1,"Front Heave","Displacement [mm]",[-4 4])
-wykresy6(czas,RL_relative,2,"Rear Heave","Displacement [mm]",[-4 4])
-wykresy6(czas,FL_relative,3,"Front Roll","Displacement [mm]",[-4 4])
-wykresy6(czas,RR_relative,4,"Rear Roll","Displacement [mm]",[-4 4])
-wykresy6(czas,RPM,5,"RPM","RPM",[0 2500])
-wykresy6(czas,RPM,6,"RPM","RPM",[0 2500])
+plot6(czas,FR_relative,1,"Front Heave","Displacement [mm]",[-4 4])
+plot6(czas,RL_relative,2,"Rear Heave","Displacement [mm]",[-4 4])
+plot6(czas,FL_relative,3,"Front Roll","Displacement [mm]",[-4 4])
+plot6(czas,RR_relative,4,"Rear Roll","Displacement [mm]",[-4 4])
+plot6(czas,RPM,5,"RPM","RPM",[0 2500])
+plot6(czas,RPM,6,"RPM","RPM",[0 2500])
 
 figure(3)
 
 sgtitle("Potentiometers velocity [m/s]")
 
-wykresy4(czas,FR_v,1,"Front Heave","Velocity [m/s]",[-0.4 0.4])
-wykresy4(czas,RL_v,2,"Rear Heave","Velocity [m/s]",[-0.1 0.1])
-wykresy4(czas,FL_v,3,"Front Roll","Velocity [m/s]",[-0.1 0.1])
-wykresy4(czas,RR_v,4,"Rear Roll","Velocity [m/s]",[-0.1 0.1])
+plot4(czas,FR_v,1,"Front Heave","Velocity [m/s]",[-0.4 0.4])
+plot4(czas,RL_v,2,"Rear Heave","Velocity [m/s]",[-0.1 0.1])
+plot4(czas,FL_v,3,"Front Roll","Velocity [m/s]",[-0.1 0.1])
+plot4(czas,RR_v,4,"Rear Roll","Velocity [m/s]",[-0.1 0.1])
 
 figure(4)
 
@@ -197,7 +197,7 @@ linkaxes([ax1 ax2 ax3 ax4 ax5 ax6],'x')
 
 %% Functions
 
-function relative=przemieszczenia(data, vel)
+function relative=displacement(data, vel)
     relative_0=data(1);
     for i=1:length(data)
         if vel(i)==0 & i==1
@@ -210,26 +210,26 @@ function relative=przemieszczenia(data, vel)
     end
 end
 
-function wynik=velocity(data, czas, V_max)
+function result=velocity(data, czas, V_max)
     for i=1:length(data)-1
-     wynik(i)=(data(i+1)-data(i))/(czas(i+1)-czas(i))/100000;
-     if abs(wynik(i))>V_max
-         wynik(i) = 0;
+     result(i)=(data(i+1)-data(i))/(czas(i+1)-czas(i))/100000;
+     if abs(result(i))>V_max
+         result(i) = 0;
      end
      i=i+1;
     end
-    wynik(end+1)=0;
+    result(end+1)=0;
 end
 
-function F=force_strong(data,data2,data3,data4,ch,cd)
+function F=force_strong(data,data2,data3,data4,ch,cd) % calcualte force from spring displacement on more loaded side
     F=-((data*60+data2*ch)*1.08+(data3*50+data4*cd)*1.6);
 end
 
-function F=force_weak(data,data2,data3,data4,ch,cd)
+function F=force_weak(data,data2,data3,data4,ch,cd) % calcualte force from spring displacement on less loaded side
     F=-((data*60+data2*ch)*1.08-(data3*50+data4*cd)*1.6);
 end
 
-function wykresy4(czas,data,index,tytul,os_y,limit)
+function plot4(czas,data,index,tytul,os_y,limit)
     subplot(2,2,index)
     plot(czas,data);
     title(tytul);
@@ -238,7 +238,8 @@ function wykresy4(czas,data,index,tytul,os_y,limit)
     ylim(limit);
     grid on
 end
-function wykresy6(czas,data,index,tytul,os_y,limit)
+
+function plot6(czas,data,index,tytul,os_y,limit)
     subplot(3,2,index)
     plot(czas,data);
     title(tytul);

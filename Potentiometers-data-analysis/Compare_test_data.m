@@ -10,8 +10,8 @@
 %% Read data
 clc
 clear all
-Table1 = importdata("Test_data_21.07\2.txt"); % select file 1
-Table2 = importdata("Test_data_28.07\1.txt"); % select file 2
+Table1 = importdata("Test_data_21.07.2020\2.txt"); % select file 1
+Table2 = importdata("Test_data_28.07.2020\1.txt"); % select file 2
 T1 = Table1.data;
 T2 = Table2.data;
 czas1 = T1(:,1);
