@@ -1,6 +1,6 @@
 # AGH Racing
 
-This repository contains scripts used for data analysis and workflow automation developed for AGH Racing Team.
+This repository contains scripts used for data analysis and workflow automation developed for [AGH Racing Team](https://www.racing.agh.edu.pl/en/home/).
 
 ### Airfoil
 
