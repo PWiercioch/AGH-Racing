@@ -97,3 +97,52 @@ For each sample data was collected for few seconds - as long as the track length
 </p>
 On above data we can see that the values oscialte over some mean value.
 
+The car is of electric powertrain meaning there is no gearbox included. This allows to calculate velocity straight from RPM data. 
+
+By analysing each sample on its own data points for aproximation were selected. Knowing that the downforce is a function of velocity squared 2nd degree polynomial was selected for approximation.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/83305684/120561647-35b70700-c405-11eb-9654-d88896fa3c65.png" width="400"/>
+  <img src="https://user-images.githubusercontent.com/83305684/120561690-48314080-c405-11eb-95d0-c3cb56691ef3.png" width="400"/>
+</p>
+<p align="center">
+  <em>Approximation for all data points</em>
+</p>
+
+Now some problems with collectd data can be seen. For front axis aproximated functions looks good but for rear axis it is nowhere close to expected. Damper compression should rise with higher velocity while in this example it is decreasing. 
+
+The error results from inaccuracy in manufactured rear suspension system. 
+
+In next attempt only 5 points were used. 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/83305684/120562465-bcb8af00-c406-11eb-8be4-0028fffd9e4d.png" width="600"/>
+</p>
+<p align="center">
+  <em>Data points selected</em>
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/83305684/120562605-043f3b00-c407-11eb-91dd-a3965134c8fb.png" width="400"/>
+  <img src="https://user-images.githubusercontent.com/83305684/120562645-17520b00-c407-11eb-970f-c79b29b7ca63.png" width="400"/>
+</p>
+<p align="center">
+  <em>Approximation for selected data points</em>
+</p>
+
+Values for both the front and rear axes were added together and the function was extrapolated.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/83305684/120562772-6009c400-c407-11eb-9440-5d77f6cbb06b.png" width="600"/>
+</p>
+<p align="center">
+  <em>Extrapolation</em>
+</p>
+
+The lowest value of the parabole should be at velociy 0 km/h. As can be seen in above plot it isn't so in this particular case. Extrapolated function tells us that for lower speeds the car produces lift instead of downforce which are not physical results. This extrapolation can be assumed as wrong and not applicable. Final calculations will be carried out for velocity in range of captured data.
+
+Because of technical problems we do not have reference measurements for stationary vechicle. We also cannot correctly extrapolate values to 0 velocity. Because of that we are left without refernce dampers lengths for stationary vechicle which makes it impossible to calculate actual velocity value acting on a car.
+
+What we did however was to calculate the difference in damper lengths for 25 km/h (74.78 cm) and 45 km/h (71.15 cm). From this value (3.63 cm) we could calculate the downforce difference beetwen 2 velocities: ***235.22 N***. The difference of downforce between two velocities calculated from CFD simulations is equal ***226.5 N***.
+
+The relative error between two values is equal only 3,84% which allows to assume that the numerical simulations are validated. Considering many siplificiations and technical problems it is desired to conduct such experiment once more to confirm the results.
