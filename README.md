@@ -12,7 +12,7 @@ Simple batch scripts to queue computations on a desktop PC.
 
 ### Potentiometers-data-analysis
 
-Scripts used to analyze data from linear potentiometers mounted on a race cars dampers. Allowed to validate numerical simulations.
+Scripts used to analyse data from linear potentiometers mounted on a race cars dampers. Allowed validating numerical simulations.
 
 ### Prometheus-HPC_Cluster-automation
 
